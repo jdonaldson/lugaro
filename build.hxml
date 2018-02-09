@@ -1,0 +1,7 @@
+-cp src
+-cp ../golgi/src
+-cp ../nginx-haxe/src
+-main lug.Lugaro
+-lua out.lua
+-cmd lua out.lua
+
