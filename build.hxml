@@ -1,7 +1,7 @@
 -cp src
--cp ../golgi/src
--cp ../nginx-haxe/src
--main lug.Lugaro
+-main Main
 -lua out.lua
 -cmd lua out.lua
+-lib nginx-haxe
+-lib golgi
 

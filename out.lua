@@ -50,14 +50,25 @@ local Class = _hx_e();
 local Enum = _hx_e();
 
 local Array = _hx_e()
+local Main = _hx_e()
+__golgi_Api = _hx_e()
+local Api = _hx_e()
 local Math = _hx_e()
 local Reflect = _hx_e()
 local String = _hx_e()
 local Std = _hx_e()
+__golgi_TableMap = _hx_e()
+__golgi_Error = _hx_e()
+__golgi_Golgi = _hx_e()
+__golgi__Path_Path_Impl_ = _hx_e()
+__golgi_meta_MetaGolgi = _hx_e()
 __haxe_IMap = _hx_e()
 __haxe_Log = _hx_e()
 __lua_Boot = _hx_e()
+__lua_PairTools = _hx_e()
+__lug_LugMeta = _hx_e()
 __lug_Lugaro = _hx_e()
+__lug_Result = _hx_e()
 
 local _hx_bind, _hx_bit, _hx_staticToInstance, _hx_funcToField, _hx_maxn, _hx_print, _hx_apply_self, _hx_box_mr, _hx_bit_clamp, _hx_table, _hx_bit_raw
 local _hx_pcall_default = {};
@@ -367,6 +378,80 @@ Array.prototype.iterator = function(self)
   end}) end
 end
 
+Main.new = {}
+Main.main = function() 
+  __haxe_Log.trace("hello lugaro", _hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=4,className="Main",methodName="main"}));
+  local _hx_status, _hx_result = pcall(function() 
+  
+      local o = __lug_Lugaro.route(__golgi__Path_Path_Impl_.fromString("foo"), _hx_e(), nil, Api.new(__lug_LugMeta.new()));
+      __haxe_Log.trace(Std.string(Std.string(o)) .. Std.string(" is the value for o"), _hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=7,className="Main",methodName="main"}));
+    return _hx_pcall_default
+  end)
+  if not _hx_status and _hx_result == "_hx_pcall_break" then
+  elseif not _hx_status then 
+  
+    local _hx_1 = _hx_result
+    local e = _hx_1
+    __haxe_Log.trace(Std.string(Std.string(e)) .. Std.string(" is the value for e"), _hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=9,className="Main",methodName="main"}));
+  elseif _hx_result ~= _hx_pcall_default then
+    return _hx_result
+  end;
+end
+
+__golgi_Api.new = function(meta) 
+  local self = _hx_new(__golgi_Api.prototype)
+  __golgi_Api.super(self,meta)
+  return self
+end
+__golgi_Api.super = function(self,meta) 
+  self.__golgi_meta__ = meta;
+  self.__golgi_dict__ = __golgi_TableMap.new();
+  self:__golgi_init__();
+end
+__golgi_Api.prototype = _hx_a();
+__golgi_Api.prototype.__golgi_init__ = function(self) 
+end
+__golgi_Api.prototype.__golgi__ = function(self,parts,params,request) 
+  do return nil end
+end
+
+Api.new = function(meta) 
+  local self = _hx_new(Api.prototype)
+  Api.super(self,meta)
+  return self
+end
+Api.super = function(self,meta) 
+  __golgi_Api.super(self,meta);
+end
+Api.prototype = _hx_a();
+Api.prototype.foo = function(self) 
+  do return __lug_Result.OK("hi") end
+end
+Api.prototype.__golgi__ = function(self,parts,params,request) 
+  local path = "";
+  if (parts.length == 0) then 
+    parts = _hx_tab_array({}, 0);
+  else
+    path = parts[0];
+  end;
+  if (self.__golgi_dict__.t[path] ~= nil) then 
+    do return self.__golgi_dict__.t[path](parts, params, request) end;
+  else
+    _G.error(__golgi_Error.NotFound(parts[0]),0);
+  end;
+end
+Api.prototype.__golgi_init__ = function(self) 
+  local _gthis = self;
+  self.__golgi_dict__.t["foo"] = function(parts,params,request) 
+    if (parts.length > 1) then 
+      _G.error(__golgi_Error.TooManyValues,0);
+    end;
+    do return _gthis:foo() end;
+  end;
+end
+Api.__super__ = __golgi_Api
+setmetatable(Api.prototype,{__index=__golgi_Api.prototype})
+
 Math.new = {}
 Math.isNaN = function(f) 
   do return f ~= f end;
@@ -604,6 +689,154 @@ Std.int = function(x)
   end;
 end
 
+__golgi_TableMap.new = function() 
+  local self = _hx_new(__golgi_TableMap.prototype)
+  __golgi_TableMap.super(self)
+  return self
+end
+__golgi_TableMap.super = function(self) 
+  self.t = ({});
+end
+__golgi_TableMap.prototype = _hx_a();
+__golgi_TableMap.prototype.get = function(self,k) 
+  do return self.t[k] end
+end
+__golgi_TableMap.prototype.set = function(self,k,v) 
+  self.t[k] = v;
+end
+__golgi_TableMap.prototype.exists = function(self,k) 
+  do return self.t[k] ~= nil end
+end
+__golgi_TableMap.prototype.toString = function(self) 
+  do return Std.string(self.t) end
+end
+__golgi_TableMap.prototype.keys = function(self) 
+  do return __lua_PairTools.pairsFold(self.t, function(x,y,z) 
+    z:push(Std.string(x));
+    do return z end;
+  end, _hx_tab_array({}, 0)) end
+end
+
+__golgi_Error.NotFound = function(path) local _x = _hx_tab_array({[0]="NotFound",0,path,__enum__=__golgi_Error}, 3); return _x; end 
+__golgi_Error.InvalidValue = function(name) local _x = _hx_tab_array({[0]="InvalidValue",1,name,__enum__=__golgi_Error}, 3); return _x; end 
+__golgi_Error.InvalidValueParam = function(name) local _x = _hx_tab_array({[0]="InvalidValueParam",2,name,__enum__=__golgi_Error}, 3); return _x; end 
+__golgi_Error.Missing = function(name) local _x = _hx_tab_array({[0]="Missing",3,name,__enum__=__golgi_Error}, 3); return _x; end 
+__golgi_Error.MissingParam = function(name) local _x = _hx_tab_array({[0]="MissingParam",4,name,__enum__=__golgi_Error}, 3); return _x; end 
+__golgi_Error.TooManyValues = _hx_tab_array({[0]="TooManyValues",5,__enum__ = __golgi_Error},2)
+
+
+__golgi_Golgi.new = {}
+__golgi_Golgi.route = function(path,params,request,api) 
+  do return api:__golgi__(path, params, request) end;
+end
+
+__golgi__Path_Path_Impl_.new = {}
+__golgi__Path_Path_Impl_._new = function(parts) 
+  local this1 = parts;
+  do return this1 end;
+end
+__golgi__Path_Path_Impl_.fromString = function(str) 
+  if (_G.string.sub(str, 1, 1) == "/") then 
+    local startIndex = 1;
+    local endIndex = nil;
+    if (endIndex == nil) then 
+      endIndex = #str;
+    end;
+    if (endIndex < 0) then 
+      endIndex = 0;
+    end;
+    if (startIndex < 0) then 
+      startIndex = 0;
+    end;
+    local _this = (function() 
+      local _hx_1
+      if (endIndex < startIndex) then 
+      _hx_1 = _G.string.sub(str, endIndex + 1, startIndex); else 
+      _hx_1 = _G.string.sub(str, startIndex + 1, endIndex); end
+      return _hx_1
+    end )();
+    local idx = 1;
+    local ret = _hx_tab_array({}, 0);
+    local delim_offset = (function() 
+      local _hx_2
+      if (#"/" > 0) then 
+      _hx_2 = #"/"; else 
+      _hx_2 = 1; end
+      return _hx_2
+    end )();
+    while (idx ~= nil) do 
+      local newidx = 0;
+      if (#"/" > 0) then 
+        newidx = _G.string.find(_this, "/", idx, true);
+      else
+        if (idx >= #_this) then 
+          newidx = nil;
+        else
+          newidx = idx + 1;
+        end;
+      end;
+      if (newidx ~= nil) then 
+        local match = _G.string.sub(_this, idx, newidx - 1);
+        ret:push(match);
+        idx = newidx + #"/";
+      else
+        ret:push(_G.string.sub(_this, idx, #_this));
+        idx = nil;
+      end;
+    end;
+    do return __golgi__Path_Path_Impl_._new(ret) end;
+  else
+    local idx1 = 1;
+    local ret1 = _hx_tab_array({}, 0);
+    local delim_offset1 = (function() 
+      local _hx_3
+      if (#"/" > 0) then 
+      _hx_3 = #"/"; else 
+      _hx_3 = 1; end
+      return _hx_3
+    end )();
+    while (idx1 ~= nil) do 
+      local newidx1 = 0;
+      if (#"/" > 0) then 
+        newidx1 = _G.string.find(str, "/", idx1, true);
+      else
+        if (idx1 >= #str) then 
+          newidx1 = nil;
+        else
+          newidx1 = idx1 + 1;
+        end;
+      end;
+      if (newidx1 ~= nil) then 
+        local match1 = _G.string.sub(str, idx1, newidx1 - 1);
+        ret1:push(match1);
+        idx1 = newidx1 + #"/";
+      else
+        ret1:push(_G.string.sub(str, idx1, #str));
+        idx1 = nil;
+      end;
+    end;
+    do return __golgi__Path_Path_Impl_._new(ret1) end;
+  end;
+end
+__golgi__Path_Path_Impl_.fromStringArr = function(arr) 
+  do return __golgi__Path_Path_Impl_._new(arr) end;
+end
+__golgi__Path_Path_Impl_.toArray = function(this1) 
+  do return this1 end;
+end
+
+__golgi_meta_MetaGolgi.new = function() 
+  local self = _hx_new(__golgi_meta_MetaGolgi.prototype)
+  __golgi_meta_MetaGolgi.super(self)
+  return self
+end
+__golgi_meta_MetaGolgi.super = function(self) 
+end
+__golgi_meta_MetaGolgi.prototype = _hx_a();
+__golgi_meta_MetaGolgi.prototype._golgi_pass = function(self,req,next) 
+  do return next(req) end
+end
+
 __haxe_IMap.new = {}
 
 __haxe_Log.new = {}
@@ -784,13 +1017,157 @@ __lua_Boot.fieldIterator = function(o)
   end}) end;
 end
 
+__lua_PairTools.new = {}
+__lua_PairTools.pairsFold = function(table,func,seed) 
+  for k,v in _G.pairs(table) do seed = func(k,v,seed) end;
+  do return seed end;
+end
+
+__lug_LugMeta.new = function() 
+  local self = _hx_new(__lug_LugMeta.prototype)
+  __lug_LugMeta.super(self)
+  return self
+end
+__lug_LugMeta.super = function(self) 
+  __golgi_meta_MetaGolgi.super(self);
+end
+__lug_LugMeta.prototype = _hx_a();
+__lug_LugMeta.prototype.user = function(self,req,next) 
+  do return next(req) end
+end
+__lug_LugMeta.__super__ = __golgi_meta_MetaGolgi
+setmetatable(__lug_LugMeta.prototype,{__index=__golgi_meta_MetaGolgi.prototype})
+
 __lug_Lugaro.new = {}
-__lug_Lugaro.route = function(path) 
-  __haxe_Log.trace("HI", _hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Lugaro.hx",lineNumber=5,className="lug.Lugaro",methodName="route"}));
+__lug_Lugaro.route = function(path,params,request,api) 
+  do return __golgi_Golgi.route(path, params, request, api) end;
 end
-__lug_Lugaro.main = function() 
-  __lug_Lugaro.route("foo");
-end
+
+__lug_Result.Continue = _hx_tab_array({[0]="Continue",0,__enum__ = __lug_Result},2)
+
+__lug_Result.SwitchingProtocols = _hx_tab_array({[0]="SwitchingProtocols",1,__enum__ = __lug_Result},2)
+
+__lug_Result.Processing = _hx_tab_array({[0]="Processing",2,__enum__ = __lug_Result},2)
+
+__lug_Result.OK = function(response) local _x = _hx_tab_array({[0]="OK",3,response,__enum__=__lug_Result}, 3); return _x; end 
+__lug_Result.Created = _hx_tab_array({[0]="Created",4,__enum__ = __lug_Result},2)
+
+__lug_Result.Accepted = _hx_tab_array({[0]="Accepted",5,__enum__ = __lug_Result},2)
+
+__lug_Result.NonAuthoritativeInformation = _hx_tab_array({[0]="NonAuthoritativeInformation",6,__enum__ = __lug_Result},2)
+
+__lug_Result.NoContent = _hx_tab_array({[0]="NoContent",7,__enum__ = __lug_Result},2)
+
+__lug_Result.ResetContent = _hx_tab_array({[0]="ResetContent",8,__enum__ = __lug_Result},2)
+
+__lug_Result.PartialContent = _hx_tab_array({[0]="PartialContent",9,__enum__ = __lug_Result},2)
+
+__lug_Result.MultiStatus = _hx_tab_array({[0]="MultiStatus",10,__enum__ = __lug_Result},2)
+
+__lug_Result.AlreadyReported = _hx_tab_array({[0]="AlreadyReported",11,__enum__ = __lug_Result},2)
+
+__lug_Result.IMUsed = _hx_tab_array({[0]="IMUsed",12,__enum__ = __lug_Result},2)
+
+__lug_Result.MultipleChoices = _hx_tab_array({[0]="MultipleChoices",13,__enum__ = __lug_Result},2)
+
+__lug_Result.MovedPermanently = _hx_tab_array({[0]="MovedPermanently",14,__enum__ = __lug_Result},2)
+
+__lug_Result.Found = _hx_tab_array({[0]="Found",15,__enum__ = __lug_Result},2)
+
+__lug_Result.SeeOther = _hx_tab_array({[0]="SeeOther",16,__enum__ = __lug_Result},2)
+
+__lug_Result.NotModified = _hx_tab_array({[0]="NotModified",17,__enum__ = __lug_Result},2)
+
+__lug_Result.UseProxy = _hx_tab_array({[0]="UseProxy",18,__enum__ = __lug_Result},2)
+
+__lug_Result.TemporaryRedirect = _hx_tab_array({[0]="TemporaryRedirect",19,__enum__ = __lug_Result},2)
+
+__lug_Result.PermanentRedirect = _hx_tab_array({[0]="PermanentRedirect",20,__enum__ = __lug_Result},2)
+
+__lug_Result.BadRequest = _hx_tab_array({[0]="BadRequest",21,__enum__ = __lug_Result},2)
+
+__lug_Result.Unauthorized = _hx_tab_array({[0]="Unauthorized",22,__enum__ = __lug_Result},2)
+
+__lug_Result.PaymentRequired = _hx_tab_array({[0]="PaymentRequired",23,__enum__ = __lug_Result},2)
+
+__lug_Result.Forbidden = _hx_tab_array({[0]="Forbidden",24,__enum__ = __lug_Result},2)
+
+__lug_Result.NotFound = _hx_tab_array({[0]="NotFound",25,__enum__ = __lug_Result},2)
+
+__lug_Result.MethodNotAllowed = _hx_tab_array({[0]="MethodNotAllowed",26,__enum__ = __lug_Result},2)
+
+__lug_Result.NotAcceptable = _hx_tab_array({[0]="NotAcceptable",27,__enum__ = __lug_Result},2)
+
+__lug_Result.ProxyAuthenticationRequired = _hx_tab_array({[0]="ProxyAuthenticationRequired",28,__enum__ = __lug_Result},2)
+
+__lug_Result.RequestTimeout = _hx_tab_array({[0]="RequestTimeout",29,__enum__ = __lug_Result},2)
+
+__lug_Result.Conflict = _hx_tab_array({[0]="Conflict",30,__enum__ = __lug_Result},2)
+
+__lug_Result.Gone = _hx_tab_array({[0]="Gone",31,__enum__ = __lug_Result},2)
+
+__lug_Result.LengthRequired = _hx_tab_array({[0]="LengthRequired",32,__enum__ = __lug_Result},2)
+
+__lug_Result.PreconditionFailed = _hx_tab_array({[0]="PreconditionFailed",33,__enum__ = __lug_Result},2)
+
+__lug_Result.PayloadTooLarge = _hx_tab_array({[0]="PayloadTooLarge",34,__enum__ = __lug_Result},2)
+
+__lug_Result.RequestURITooLong = _hx_tab_array({[0]="RequestURITooLong",35,__enum__ = __lug_Result},2)
+
+__lug_Result.UnsupportedMediaType = _hx_tab_array({[0]="UnsupportedMediaType",36,__enum__ = __lug_Result},2)
+
+__lug_Result.RequestedRangeNotSatisfiable = _hx_tab_array({[0]="RequestedRangeNotSatisfiable",37,__enum__ = __lug_Result},2)
+
+__lug_Result.ExpectationFailed = _hx_tab_array({[0]="ExpectationFailed",38,__enum__ = __lug_Result},2)
+
+__lug_Result.ImaATeapot = _hx_tab_array({[0]="ImaATeapot",39,__enum__ = __lug_Result},2)
+
+__lug_Result.MisdirectedRequest = _hx_tab_array({[0]="MisdirectedRequest",40,__enum__ = __lug_Result},2)
+
+__lug_Result.UnprocessableEntity = _hx_tab_array({[0]="UnprocessableEntity",41,__enum__ = __lug_Result},2)
+
+__lug_Result.Locked = _hx_tab_array({[0]="Locked",42,__enum__ = __lug_Result},2)
+
+__lug_Result.FailedDependency = _hx_tab_array({[0]="FailedDependency",43,__enum__ = __lug_Result},2)
+
+__lug_Result.UpgradeRequired = _hx_tab_array({[0]="UpgradeRequired",44,__enum__ = __lug_Result},2)
+
+__lug_Result.PreconditionRequired = _hx_tab_array({[0]="PreconditionRequired",45,__enum__ = __lug_Result},2)
+
+__lug_Result.TooManyRequests = _hx_tab_array({[0]="TooManyRequests",46,__enum__ = __lug_Result},2)
+
+__lug_Result.RequestHeaderFieldsTooLarge = _hx_tab_array({[0]="RequestHeaderFieldsTooLarge",47,__enum__ = __lug_Result},2)
+
+__lug_Result.ConnectionClosedWithoutResponse = _hx_tab_array({[0]="ConnectionClosedWithoutResponse",48,__enum__ = __lug_Result},2)
+
+__lug_Result.UnavailableForLegalReasons = _hx_tab_array({[0]="UnavailableForLegalReasons",49,__enum__ = __lug_Result},2)
+
+__lug_Result.ClientClosedRequest = _hx_tab_array({[0]="ClientClosedRequest",50,__enum__ = __lug_Result},2)
+
+__lug_Result.InternalServerError = _hx_tab_array({[0]="InternalServerError",51,__enum__ = __lug_Result},2)
+
+__lug_Result.NotImplemented = _hx_tab_array({[0]="NotImplemented",52,__enum__ = __lug_Result},2)
+
+__lug_Result.BadGateway = _hx_tab_array({[0]="BadGateway",53,__enum__ = __lug_Result},2)
+
+__lug_Result.ServiceUnavailable = _hx_tab_array({[0]="ServiceUnavailable",54,__enum__ = __lug_Result},2)
+
+__lug_Result.GatewayTimeout = _hx_tab_array({[0]="GatewayTimeout",55,__enum__ = __lug_Result},2)
+
+__lug_Result.HTTPVersionNotSupported = _hx_tab_array({[0]="HTTPVersionNotSupported",56,__enum__ = __lug_Result},2)
+
+__lug_Result.VariantAlsoNegotiates = _hx_tab_array({[0]="VariantAlsoNegotiates",57,__enum__ = __lug_Result},2)
+
+__lug_Result.InsufficientStorage = _hx_tab_array({[0]="InsufficientStorage",58,__enum__ = __lug_Result},2)
+
+__lug_Result.LoopDetected = _hx_tab_array({[0]="LoopDetected",59,__enum__ = __lug_Result},2)
+
+__lug_Result.NotExtended = _hx_tab_array({[0]="NotExtended",60,__enum__ = __lug_Result},2)
+
+__lug_Result.NetworkAuthenticationRequired = _hx_tab_array({[0]="NetworkAuthenticationRequired",61,__enum__ = __lug_Result},2)
+
+__lug_Result.NetworkConnectTimeoutError = _hx_tab_array({[0]="NetworkConnectTimeoutError",62,__enum__ = __lug_Result},2)
+
 _hx_bit_clamp = function(v) 
   if v <= 2147483647 and v >= -2147483648 then
     if v > 0 then return _G.math.floor(v)
@@ -832,4 +1209,4 @@ _hx_wrap_if_string_field = function(o, fld)
   end
 end
 _hx_static_init();
-__lug_Lugaro.main()
+Main.main()

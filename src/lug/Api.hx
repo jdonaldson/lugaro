@@ -1,3 +1,5 @@
 package lug;
+import lua.Table;
+import ngx.Req;
 
-typedef Api = golgi.Api<Request, Result>;
+typedef Api<T> = golgi.Api<Req, Result<T>, LugMeta<T>>;
